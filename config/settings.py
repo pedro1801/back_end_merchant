@@ -78,12 +78,12 @@ WSGI_APPLICATION = 'config.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'merchant_db',      # Nome do seu banco de dados
-        'USER': 'postgres_user',    # Seu usuário do PostgreSQL
-        'PASSWORD': 'your_password',# Sua senha
-        'HOST': 'localhost',        # Ou o host onde o DB está rodando
-        'PORT': '5432',
+        "ENGINE": "django.db.backends.postgresql",
+        "NAME": "postgres",
+        "USER": "postgres",
+        "PASSWORD": "pedro1234567",
+        "HOST": "banco-teste.cfuqmya0gvzt.sa-east-1.rds.amazonaws.com",
+        "PORT": "5432",
     }
 }
 
@@ -118,6 +118,7 @@ USE_I18N = True
 
 USE_TZ = True
 
+CORS_ALLOW_ALL_ORIGINS = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.2/howto/static-files/

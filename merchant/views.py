@@ -234,7 +234,7 @@ class MerchantUpdataStatusView(APIView):
             if transicao not in transicoes_permitidas:
                 return Response(
                     {
-                        "detail": "Status não permitido"
+                        "detail": f"Transicao não permitida de {status_atual} para {status_novo}"
                     },
                     status=status.HTTP_400_BAD_REQUEST
                 )
@@ -325,18 +325,10 @@ class MerchantTimeLineListView(APIView):
 
 class LoginView(APIView):
 
-    def get(self, request):
+    def post(self, request):
 
-        serializer = serializers.LoginSerializer(data=request.query_params)
-
-        if not serializer.is_valid():
-            return Response(
-                serializer.errors,
-                status=status.HTTP_400_BAD_REQUEST
-            )
-
-        username = serializer.validated_data["username"]
-        password = serializer.validated_data["password"]
+        username = request.data.get("username")
+        password = request.data.get("password")
 
         user = authenticate(
             username=username,
@@ -346,18 +338,16 @@ class LoginView(APIView):
         if user is None:
             return Response(
                 {
-                    "detail": "Usuário ou senha inválidos."
+                    "detail": "Usuário ou senha inválidos"
                 },
                 status=status.HTTP_401_UNAUTHORIZED
             )
 
         return Response(
             {
-                "id": user.id,
-                "username": user.username,
-                "email": user.email,
-                "first_name": user.first_name,
-                "last_name": user.last_name,
+                "detail": "Login realizado com sucesso",
+                "user_id": user.id,
+                "username": user.username
             },
             status=status.HTTP_200_OK
         )

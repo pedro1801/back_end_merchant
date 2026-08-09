@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.core.validators import RegexValidator
 
 
 class StatusMerchant(models.Model):
@@ -11,14 +12,30 @@ class StatusMerchant(models.Model):
 
 class Merchant(models.Model):
     id = models.AutoField(primary_key=True)
-    cnpj = models.CharField(max_length=14, unique=True)
+    cnpj = models.CharField(
+        max_length=14, 
+        unique=True,
+        validators=[
+            RegexValidator(
+            regex=r'^\d{14}$',
+            message='O CNPJ deve conter exatamente 14 números.'
+        )
+    ])
     razao_social = models.CharField(max_length=255)
     nome_fantasia = models.CharField(
         max_length=255,
         null=True
     )
     email = models.EmailField()
-    telefone = models.CharField(max_length=20)
+    telefone = models.CharField(
+        max_length=20,
+        validators=[
+            RegexValidator(
+                regex=r'^\d+$',
+                message='O telefone deve conter apenas números.'
+            )
+        ]
+    )
     data_criacao = models.DateTimeField(auto_now_add=True)
 
     status = models.ForeignKey(
