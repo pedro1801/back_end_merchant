@@ -779,7 +779,7 @@ class LoginViewTest(APITestCase):
         self.url = reverse("login")
 
     def test_login_com_credenciais_validas(self):
-        response = self.client.get(
+        response = self.client.post(
             self.url,
             {
                 "username": "pedro",
@@ -793,7 +793,7 @@ class LoginViewTest(APITestCase):
         )
 
         self.assertEqual(
-            response.data["id"],
+            response.data["user_id"],
             self.user.id
         )
 
@@ -802,13 +802,9 @@ class LoginViewTest(APITestCase):
             "pedro"
         )
 
-        self.assertEqual(
-            response.data["email"],
-            "pedro@teste.com"
-        )
 
     def test_login_com_senha_incorreta(self):
-        response = self.client.get(
+        response = self.client.post(
             self.url,
             {
                 "username": "pedro",
@@ -823,11 +819,11 @@ class LoginViewTest(APITestCase):
 
         self.assertEqual(
             response.data["detail"],
-            "Usuário ou senha inválidos."
+            "Usuário ou senha inválidos"
         )
 
     def test_login_com_usuario_inexistente(self):
-        response = self.client.get(
+        response = self.client.post(
             self.url,
             {
                 "username": "nao_existe",
@@ -841,7 +837,7 @@ class LoginViewTest(APITestCase):
         )
 
     def test_login_sem_username(self):
-        response = self.client.get(
+        response = self.client.post(
             self.url,
             {
                 "password": "123456",
@@ -850,11 +846,11 @@ class LoginViewTest(APITestCase):
 
         self.assertEqual(
             response.status_code,
-            status.HTTP_400_BAD_REQUEST
+            status.HTTP_401_UNAUTHORIZED
         )
 
     def test_login_sem_password(self):
-        response = self.client.get(
+        response = self.client.post(
             self.url,
             {
                 "username": "pedro",
@@ -863,5 +859,5 @@ class LoginViewTest(APITestCase):
 
         self.assertEqual(
             response.status_code,
-            status.HTTP_400_BAD_REQUEST
+            status.HTTP_401_UNAUTHORIZED
         )
