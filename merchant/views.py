@@ -231,7 +231,7 @@ class MerchantUpdataStatusView(APIView):
             if transicao not in transicoes_permitidas:
                 return Response(
                     {
-                        "detail": f"Transicao não permitida de {status_atual} para {status_novo}"
+                        "detail": "Transicao não permitida de para esses status"
                     },
                     status=status.HTTP_400_BAD_REQUEST
                 )

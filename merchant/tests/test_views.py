@@ -25,6 +25,7 @@ class MerchantCreateViewTest(APITestCase):
             "nome_fantasia": "Empresa Teste",
             "email": "teste@empresa.com",
             "telefone": "67999999999",
+            "status_id": self.draft.id
         }
 
     def test_get_deve_retornar_modelo_do_merchant(self):
@@ -595,7 +596,7 @@ class MerchantUpdateStatusViewTest(APITestCase):
 
         self.assertEqual(
             response.data["detail"],
-            "Status não permitido"
+            "Transicao não permitida de para esses status"
         )
 
     def test_status_inexistente(self):
