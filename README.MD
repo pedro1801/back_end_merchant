@@ -28,7 +28,7 @@ Siga os passos abaixo para configurar o ambiente de desenvolvimento local.
 **1. Clone o Repositório**
 
 ```bash
-git clone <URL_DO_SEU_REPOSITORIO>
+git clone https://github.com/pedro1801/back_end_merchant.git
 cd projeto_merchant
 ```
 

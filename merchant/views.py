@@ -26,13 +26,11 @@ class MerchantCreateView(APIView):
 
     def post(self, request):
         try:
-            request.data["status_id"] = StatusMerchant.objects.get(
-                status_name="draft"
-            ).id
+            draft_status = StatusMerchant.objects.get(status_name="draft")
 
             serializer = serializers.MerchantSerializerCreate(data=request.data)
             if serializer.is_valid():
-                serializer.save()
+                serializer.save(status=draft_status)
                 return Response(
                     serializer.data,
                     status=status.HTTP_201_CREATED
@@ -42,7 +40,6 @@ class MerchantCreateView(APIView):
                     serializer.errors,
                     status=status.HTTP_400_BAD_REQUEST
                 )
-
         except OperationalError:
             return Response(
                 {

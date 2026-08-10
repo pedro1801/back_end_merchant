@@ -53,7 +53,7 @@ class MerchantSerializerCreateTest(TestCase):
 
     def test_deve_aceitar_nome_fantasia_nulo(self):
         data = self.valid_data.copy()
-        data["nome_fantasia"] = None
+        data["nome_fantasia"] = ''
 
         serializer = serializers.MerchantSerializerCreate(
             data=data

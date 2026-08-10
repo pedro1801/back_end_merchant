@@ -24,9 +24,9 @@ class Merchant(models.Model):
     razao_social = models.CharField(max_length=255)
     nome_fantasia = models.CharField(
         max_length=255,
-        null=True
+        blank=True
     )
-    email = models.EmailField()
+    email = models.EmailField() 
     telefone = models.CharField(
         max_length=20,
         validators=[
